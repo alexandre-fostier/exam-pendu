@@ -9,8 +9,26 @@ dico_10_lettres.txt
 On enlève les accents, les espaces, les tirets et les mots en double.
 """
 
-def lire_filtrer_mots(chemin_lexique, longueur):
-    return []
+import unicodedata
+
+
+def lire_filtrer_mots(chemin_lexique:str, longueur:int):
+    """Renvoie une liste de mots, en majuscule et sans accents, de longueur 'longueur' à partir d'un fichier txt"""
+    liste_mots = []
+    with open(chemin_lexique, 'r', encoding='utf8') as f:
+        for l in f:
+            # récupère le premier élément de la ligne car il y a d'autres infos dans le le fichier 'liste_mot.txt'
+            mot = l.strip().split()[0]
+
+            if len(mot) == longueur:
+                # solution de ChatGPT
+                mot = ''.join(c for c in unicodedata.normalize('NFD', mot) if unicodedata.category(c) != 'Mn')
+
+                mot = mot.replace('-', '').upper()
+
+                if mot not in liste_mots:
+                    liste_mots.append(mot)
+    return liste_mots
 
 
 def ecrire_liste_mots(liste_mots:list, longueur:int) -> None:
