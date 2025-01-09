@@ -10,24 +10,32 @@ On enlève les accents, les espaces, les tirets et les mots en double.
 """
 
 import unicodedata
+import os
 
 
 def lire_filtrer_mots(chemin_lexique:str, longueur:int):
     """Renvoie une liste de mots, en majuscule et sans accents, de longueur 'longueur' à partir d'un fichier txt"""
+
+    # Vérifier si le fichier existe et est non vide (code ChatGPT)
+    if not os.path.exists(chemin_lexique) or os.path.getsize(chemin_lexique) == 0:
+        raise ValueError("Le fichier est vide ou n'existe pas.")
+
     liste_mots = []
     with open(chemin_lexique, 'r', encoding='utf8') as f:
         for l in f:
-            # récupère le premier élément de la ligne car il y a d'autres infos dans le le fichier 'liste_mot.txt'
-            mot = l.strip().split()[0]
+            mot = l.strip()
+            if mot:  # gestion des lignes vides:
+                # récupère le premier élément de la ligne car il y a d'autres infos dans le le fichier 'liste_mot.txt'
+                mot = l.strip().split()[0]
 
-            if len(mot) == longueur:
-                # solution de ChatGPT
-                mot = ''.join(c for c in unicodedata.normalize('NFD', mot) if unicodedata.category(c) != 'Mn')
+                if len(mot) == longueur:
+                    # (codeChatGPT)
+                    mot = ''.join(c for c in unicodedata.normalize('NFD', mot) if unicodedata.category(c) != 'Mn')
 
-                mot = mot.replace('-', '').upper()
+                    mot = mot.replace('-', '').upper()
 
-                if mot not in liste_mots:
-                    liste_mots.append(mot)
+                    if mot not in liste_mots:
+                        liste_mots.append(mot)
     return liste_mots
 
 
