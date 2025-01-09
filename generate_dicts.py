@@ -13,7 +13,7 @@ import unicodedata
 import os
 
 
-def lire_filtrer_mots(chemin_lexique:str, longueur:int):
+def lire_filtrer_mots(chemin_lexique:str, longueur:int) -> list:
     """Renvoie une liste de mots, en majuscule et sans accents, de longueur 'longueur' à partir d'un fichier txt"""
 
     # Vérifier si le fichier existe et est non vide (code ChatGPT)

@@ -2,7 +2,7 @@ import math
 from copy import copy
 
 
-def generate_valid_words(possible_words:list[str], letters_in_secret:list[tuple], letters_not_in_secret:list[str]):
+def generate_valid_words(possible_words:list[str], letters_in_secret:list[tuple], letters_not_in_secret:list[str]) -> list[str]:
     """Renvoie la liste des mots valides, correspondant aux critères déjà connus"""
     valid_words = []
 
@@ -29,7 +29,7 @@ def generate_valid_words(possible_words:list[str], letters_in_secret:list[tuple]
 
 
 
-def generate_best_letters(possible_words:list, letters_not_played:list[str], letters_in_secret:list[tuple], letters_not_in_secret:list[str]):
+def generate_best_letters(possible_words:list, letters_not_played:list[str], letters_in_secret:list[tuple], letters_not_in_secret:list[str]) -> str:
     """Renvoie la meilleure lettre, celle qui élimine le plus de mots possibles parmi les mots restants. Pour cela, on
     simule le fait de jouer chaque lettre et on mesure combien de mots sont encore possibles après avoir joué cette
     lettre. La lettre qui, en moyenne, réduit le plus les possibilités est celle que l'on conseille à l'utilisateur."""
